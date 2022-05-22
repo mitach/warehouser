@@ -4,12 +4,18 @@ const nameOfProduct = document.getElementById('name');
 const quantity = document.getElementById('quantity');
 const price = document.getElementById('price');
 
+console.log(JSON.parse(localStorage.getItem('storage')));
+
+let storage;
+
+if (localStorage.key('storage')) {
+    storage = JSON.parse(localStorage.getItem('storage'));
+} else {
+    storage = [];
+}
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    console.log(nameOfProduct.value);
-    console.log(quantity.value);
-    console.log(price.value);
 
     let item = {
         nameOfProduct: nameOfProduct.value,
@@ -17,9 +23,11 @@ form.addEventListener('submit', (e) => {
         price: price.value
     };
 
-    addToLocalStorage(item);
+    storage.push(item)
+
+    updateLocalStorage(storage);
 });
 
-function addToLocalStorage(item) {
-    localStorage.setItem(item.nameOfProduct, JSON.stringify(item))
+function updateLocalStorage(item) {
+    localStorage.setItem('storage', JSON.stringify(storage))
 }
