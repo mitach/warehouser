@@ -1,3 +1,12 @@
-form {
-    display: block;
+ul {
+
+}
+
+li {
+    color: blue;
+    list-style: none;
+}
+
+li:hover {
+    cursor: pointer;
 }

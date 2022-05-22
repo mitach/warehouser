@@ -1,10 +1,13 @@
 const form = document.getElementById('form');
 
+const container = document.getElementById('container');
+
 const nameOfProduct = document.getElementById('name');
 const quantity = document.getElementById('quantity');
 const price = document.getElementById('price');
 
-console.log(JSON.parse(localStorage.getItem('storage')));
+const add = document.getElementById('add');
+const list = document.getElementById('list');
 
 let storage;
 
@@ -30,4 +33,41 @@ form.addEventListener('submit', (e) => {
 
 function updateLocalStorage(item) {
     localStorage.setItem('storage', JSON.stringify(storage))
+}
+
+list.addEventListener('click', showList);
+add.addEventListener('click', showAdd);
+
+function showList() {
+
+    const localStorageItems = JSON.parse(localStorage.getItem('storage'));
+
+    let result = ``;
+    for (let line of localStorageItems) {
+        result += `<tr>`;
+        result += `<td>${line.nameOfProduct}</td><td>${line.quantity}</td><td>${line.price}</td>`;
+        result += `</tr>`;
+    }
+
+    container.innerHTML = `
+    <table border="1">
+        <thead>
+            <th>Name</th>
+            <th>Quantitie</th>
+            <th>Price</th>
+        </thead>
+        ${result}
+    </table>
+    `
+}
+
+function showAdd() {
+    container.innerHTML = `
+        <form id="form">
+            <input type="text" id="name" required>
+            <input type="number" id="quantity" required>
+            <input type="number" id="price" required>
+            <input type="submit">
+        </form>
+    `;
 }
